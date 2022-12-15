@@ -1,0 +1,46 @@
+.body {
+  max-width: 700px;
+}
+
+.head {
+  height: 50px;
+  padding: 10px 15px;
+  margin: 10px 0;
+  display: flex;
+  align-items: center;
+  border-radius: 10px;
+  background-color: rgb(251, 189, 198);
+}
+
+.incomplete-tasks {
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  background-color: aqua;
+}
+.incomplete-tasks p {
+  margin: 0;
+  padding: 0;
+}
+
+.complete-tasks {
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  background-color: aquamarine;
+}
+.complete-tasks p {
+  margin: 0;
+  padding: 0;
+}
+
+.deleted-tasks {
+  padding: 10px 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+  background-color: lightgray;
+}
+.deleted-tasks p {
+  margin: 0;
+  padding: 0;
+}

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-// import './App.css';
+import './App.css';
 
 const App = (): React.ReactElement => {
   const [input, setInput] = useState<string>('')
@@ -101,43 +101,50 @@ const App = (): React.ReactElement => {
   }
 
   return(
-    <>
-    <input placeholder='ToDoを入力' onChange={onChangeInput} value={input}/>
-    <button onClick={onClickInputAdd}>追加</button>
+    <div className="body">
+      <div className="head">
+        <input placeholder='ToDoを入力' onChange={onChangeInput} value={input}/>
+        <button onClick={onClickInputAdd}>追加</button>
+      </div>
+      <div className='incomplete-tasks'>
+      <p>未完了のToDo</p>
+        <ul>
+          {incompleteTasks.map((incompleteTask, index)=>
+            <li>{incompleteTask}
+              <button type='button' onClick={onClickMoveToComplete(index, incompleteTask)}>完了</button>
+              <button type='button' onClick={onClickFromIncompleteToDeleted(index, incompleteTask)}>削除</button>
+            </li>
+          )}
+        </ul>
+      </div>
 
-    <p>未完了のToDo</p>
-    <ul>
-      {incompleteTasks.map((incompleteTask, index)=>
-        <li>{incompleteTask}
-          <button type='button' onClick={onClickMoveToComplete(index, incompleteTask)}>完了</button>
-          <button type='button' onClick={onClickFromIncompleteToDeleted(index, incompleteTask)}>削除</button>
-        </li>
-      )}
-    </ul>
-
-    <p>完了済みのToDo</p>
-    <ul>
-      {completeTasks.map((completeTask, index)=>
-      <li>
-        {completeTask}
-        <button type='button' onClick={onClickBackToIncomplete(index, completeTask)}>未完了へ戻す</button>
-        <button type='button' onClick={onClickMoveFromCompleteToDeleted(index, completeTask)}>削除</button>
-      </li>
-      )}
-    </ul>
-    
-    <p>削除済みのToDo</p>
-    <ul>
-      {deletedTasks.map((deletedTask, index)=>
-      <li>
-        {deletedTask}
-        <button type='button' onClick={onClickBackFromDeletedToCompleted(index, deletedTask)}>完了へ戻す</button>
-        <button type='button' onClick={onClickBackFromDeletedToIncomplete(index, deletedTask)}>未完了へ戻す</button>
-        <button type='button' onClick={onClickCompleteDeleted(index)}>完全に削除</button>
-      </li>
-      )}
-    </ul>
-    </>
+      <div className='complete-tasks'>
+        <p>完了済みのToDo</p>
+        <ul>
+          {completeTasks.map((completeTask, index)=>
+          <li>
+            {completeTask}
+            <button type='button' onClick={onClickBackToIncomplete(index, completeTask)}>未完了へ戻す</button>
+            <button type='button' onClick={onClickMoveFromCompleteToDeleted(index, completeTask)}>削除</button>
+          </li>
+          )}
+        </ul>
+      </div>
+      
+      <div className='deleted-tasks'>
+        <p>削除済みのToDo</p>
+        <ul>
+          {deletedTasks.map((deletedTask, index)=>
+          <li>
+            {deletedTask}
+            <button type='button' onClick={onClickBackFromDeletedToCompleted(index, deletedTask)}>完了へ戻す</button>
+            <button type='button' onClick={onClickBackFromDeletedToIncomplete(index, deletedTask)}>未完了へ戻す</button>
+            <button type='button' onClick={onClickCompleteDeleted(index)}>完全に削除</button>
+          </li>
+          )}
+        </ul>
+      </div>
+    </div>
   );
 
 }
