@@ -6,6 +6,8 @@ const App = (): React.ReactElement => {
   const [incompleteTasks, setIncompleteTasks] = useState<string[]>([])
   const [completeTasks, setCompleteTasks] = useState<string[]>([])
   const [deletedTasks, setDeletedTasks] = useState<string[]>([])
+  const createTasks = [incompleteTasks, completeTasks, deletedTasks]
+  const setCreateTasks = [setIncompleteTasks, setCompleteTasks, setDeletedTasks]
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>)=>{
     setInput(e.target.value)
@@ -13,91 +15,32 @@ const App = (): React.ReactElement => {
 
   const onClickInputAdd = ()=>{
     if (input === '') return
-    const newInput = [...incompleteTasks,input]
-    setIncompleteTasks(newInput)
+    const newInput = [...createTasks[0],input]
+    setCreateTasks[0](newInput)
     setInput('')
   }
 
-  const onClickMoveToComplete = (index:number, task:string)=>()=>{
-    const newIncompleteTasks = [...incompleteTasks]
-    newIncompleteTasks.splice(index, 1)
-    setIncompleteTasks(newIncompleteTasks)
-    setCompleteTasks([...completeTasks, task])
+  const onClickMove = (index: number, i: number, j: number, task: string)=>()=>{
+    // 1. createTasksを削除する
+    //  1-1. createTasksのi番目をスプレッドする（newTasksとする）
+    //  1-2. newTasksをspliceして、indexの1つ目を削除する
+    //  1-3. setCreateTasksのi番目にnewTasksを入れる
+    // 2. setCreateTasksに入れる
+    //  2-1. setCreateTasksのj番目にスプレッドしたcreateTasksのj番目を入れる
+    const newTasks = [...createTasks[i]]
+    newTasks.splice(index,1)
+    setCreateTasks[i](newTasks)
+    setCreateTasks[j]([...createTasks[j], task])
   }
 
-  const onClickBackToIncomplete = (index:number, task:string)=>()=>{
-    // 1.completeTasksを削除する
-    //  1-1. completeTasksをスプレッドする
-    //  1-2. completeTasksをspliceしてindex番目を1つ削除する
-    //  1-3. setCompleteTasksに1-2.を入れる
-    // 2. setIncompleteTasksに入れる
-    //  2-1. setIncompleteTasksにスプレッドしたincompleteTasksを入れる
-    const newCompleteTasks = [...completeTasks]
-    newCompleteTasks.splice(index,1)
-    setCompleteTasks(newCompleteTasks)
-    setIncompleteTasks([...incompleteTasks, task])
-  }
-
-  const onClickMoveFromCompleteToDeleted = (index:number, task:string)=>()=>{
-    // 1. completeTasksを削除する
-    //  1-1. completeTasksをスプレッドする(newDeletedTasksとする)
-    //  1-2. newDeletedTasksをspliceしてindex番目を1つ削除する
-    //  1-3. setCompleteTasksにnewDeletedTasksを入れる
-    // 2. setDeletedTasksに入れる
-    //  2-1. setDeletedTasksにスプレッドしたdeletedTasksを入れる
-    const newDeletedTasks = [...completeTasks]
-    newDeletedTasks.splice(index,1)
-    setCompleteTasks(newDeletedTasks)
-    setDeletedTasks([...deletedTasks, task])
-  }
-
-  const onClickFromIncompleteToDeleted = (index:number, task:string)=>()=>{
-    // 1. incompleteTasksを削除する
-    //  1-1. incompleteTasksをスプレッドする(newDeletedTasksとする)
-    //  1-2. newDeletedTasksをspliceしてindex番目の1つを削除する
-    //  1-3. setIncompleteTasksにnewDeletedTasksを入れる
-    // 2. setDeletedTasksに入れる
-    //  2-1. setDeletedTasksにスプレッドしたdeletedTasksを入れる
-    const newDeletedTasks = [...incompleteTasks]
-    newDeletedTasks.splice(index, 1)
-    setIncompleteTasks(newDeletedTasks)
-    setDeletedTasks([...deletedTasks, task])
-  }
-
-  const onClickBackFromDeletedToCompleted = (index:number, task:string)=>()=>{
+  const onClickCompleteDeleted = (index:number, i: number)=>()=>{
     // 1. deletedTasksを削除する
-    //  1-1. deletedTasksをスプレッドする(newDeletedTasksとする)
-    //  1-2. newDeletedTasksをspliceしてindex番目を1つ削除する
-    //  1-3. setDeletedTasksにnewDeletedTasksを入れる
-    // 2. setCompleteTasksに入れる
-    //  2-1. setCompleteTasksにスプレッドしたcompleteTasksを入れる
-    const newDeletedTasks = [...deletedTasks]
-    newDeletedTasks.splice(index,1)
-    setDeletedTasks(newDeletedTasks)
-    setCompleteTasks([...completeTasks, task])
-  }
-
-  const onClickBackFromDeletedToIncomplete = (index:number, task:string)=>()=>{
-    // 1. deletedTasksを削除する
-    //  1-1. deletedTasksをスプレッドする(newDeletedTasksとする)
-    //  1-2. newDeletedTasksをspliceしてindex番目を1つ削除する
-    //  1-3. setDeletedTasksにnewDeletedTasksを入れる
-    // 2. setIncompleteTasksに入れる
-    //  2-1. setIncompleteTasksにスプレッドしたincompleteTasksを入れる
-    const newDeletedTasks = [...deletedTasks]
-    newDeletedTasks.splice(index, 1)
-    setDeletedTasks(newDeletedTasks)
-    setIncompleteTasks([...incompleteTasks, task])
-  }
-
-  const onClickCompleteDeleted = (index:number)=>()=>{
-    // 1. deletedTasksを削除する
-    //   1-1. deletedTasksをスプレッドする(newDeletedTasksとする)
+    //   1-1. i番目のcreateTasksをスプレッドする(newDeletedTasksとする)
     //   1-2. newDeletedTasksをspliceしてindex番目を1つ削除する
-    //   1-3. setDeletedTasksにスプレッドしたnewDeletedTasksを入れる
-    const newDeletedTasks = [...deletedTasks]
+    //   1-3. i番目のsetCreateTasksにスプレッドしたnewDeletedTasksを入れる
+    const newDeletedTasks = [...createTasks[i]]
     newDeletedTasks.splice(index,1)
-    setDeletedTasks(newDeletedTasks)
+    setCreateTasks[i](newDeletedTasks)
   }
 
   return(
@@ -111,8 +54,8 @@ const App = (): React.ReactElement => {
         <ul>
           {incompleteTasks.map((incompleteTask, index)=>
             <li>{incompleteTask}
-              <button type='button' onClick={onClickMoveToComplete(index, incompleteTask)}>完了</button>
-              <button type='button' onClick={onClickFromIncompleteToDeleted(index, incompleteTask)}>削除</button>
+              <button type='button' onClick={onClickMove(index, 0, 1, incompleteTask)}>完了</button>
+              <button type='button' onClick={onClickMove(index, 0, 2, incompleteTask)}>削除</button>
             </li>
           )}
         </ul>
@@ -124,8 +67,8 @@ const App = (): React.ReactElement => {
           {completeTasks.map((completeTask, index)=>
           <li>
             {completeTask}
-            <button type='button' onClick={onClickBackToIncomplete(index, completeTask)}>未完了へ戻す</button>
-            <button type='button' onClick={onClickMoveFromCompleteToDeleted(index, completeTask)}>削除</button>
+            <button type='button' onClick={onClickMove(index, 1, 0, completeTask)}>未完了へ戻す</button>
+            <button type='button' onClick={onClickMove(index, 1, 2, completeTask)}>削除</button>
           </li>
           )}
         </ul>
@@ -137,9 +80,9 @@ const App = (): React.ReactElement => {
           {deletedTasks.map((deletedTask, index)=>
           <li>
             {deletedTask}
-            <button type='button' onClick={onClickBackFromDeletedToCompleted(index, deletedTask)}>完了へ戻す</button>
-            <button type='button' onClick={onClickBackFromDeletedToIncomplete(index, deletedTask)}>未完了へ戻す</button>
-            <button type='button' onClick={onClickCompleteDeleted(index)}>完全に削除</button>
+            <button type='button' onClick={onClickMove(index, 2, 1, deletedTask)}>完了へ戻す</button>
+            <button type='button' onClick={onClickMove(index, 2, 0, deletedTask)}>未完了へ戻す</button>
+            <button type='button' onClick={onClickCompleteDeleted(index, 2)}>完全に削除</button>
           </li>
           )}
         </ul>
