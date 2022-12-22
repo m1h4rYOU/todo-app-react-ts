@@ -43,6 +43,20 @@ const App = (): React.ReactElement => {
     setCreateTasks[i](newDeletedTasks)
   }
 
+  const onClickEditTasks = (index: number, i: number)=>()=>{
+    // 1. i番目のcreateTasksを削除する
+    //  1-1. createTasksのi番目をスプレッドする（newTasksとする）
+    //  1-2. window.promptを表示（editTasksとする）
+    //  1-3. newTasksをspliceしてindex番目の1つを削除する
+    // 2. i番目のsetCreateTasksに入れる
+    //  2-1. i番目のsetCreateTasksにスプレッドしたnewTasksを入れる
+    const newTasks = [...createTasks[i]]
+    const editTasks = window.prompt('編集してください')
+    if(editTasks === null){return}
+    newTasks.splice(index, 1, editTasks)
+    setCreateTasks[i](newTasks)
+  }
+
   return(
     <div className="body">
       <div className="head">
@@ -54,6 +68,7 @@ const App = (): React.ReactElement => {
         <ul>
           {incompleteTasks.map((incompleteTask, index)=>
             <li>{incompleteTask}
+              <button type='button' onClick={onClickEditTasks(index, 0)}>編集</button>
               <button type='button' onClick={onClickMove(index, 0, 1, incompleteTask)}>完了</button>
               <button type='button' onClick={onClickMove(index, 0, 2, incompleteTask)}>削除</button>
             </li>
@@ -67,6 +82,7 @@ const App = (): React.ReactElement => {
           {completeTasks.map((completeTask, index)=>
           <li>
             {completeTask}
+            <button type='button' onClick={onClickEditTasks(index, 0)}>編集</button>
             <button type='button' onClick={onClickMove(index, 1, 0, completeTask)}>未完了へ戻す</button>
             <button type='button' onClick={onClickMove(index, 1, 2, completeTask)}>削除</button>
           </li>
