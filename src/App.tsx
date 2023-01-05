@@ -91,7 +91,7 @@ const App = (): React.ReactElement => {
     <div className="body">
       <div className="head">
         <input placeholder='ToDoを入力' onChange={onChangeInput} value={input}/>
-        <Flatpickr ref={fp} placeholder='締切' onChange={onChangeDate}/>
+        <Flatpickr ref={fp} placeholder='締切' onChange={onChangeDate} value={dueDate}/>
         <button
           type="button"
           onClick={() => {
