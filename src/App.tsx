@@ -62,7 +62,7 @@ const App = (): React.ReactElement => {
     // 2. i番目のsetCreateTasksに入れる
     //  2-1. i番目のsetCreateTasksにスプレッドしたnewTasksを入れる
     const newTasks = [...createTasks[i]]
-    const editTask = window.prompt('ToDoを編集してください')
+    const editTask = window.prompt('ToDoを編集してください', task.name)
     if(editTask === null){return}
     newTasks.splice(index, 1, {name: editTask, deadline: task.deadline})
     setCreateTasks[i](newTasks)
@@ -81,7 +81,7 @@ const App = (): React.ReactElement => {
     // 2. i番目のsetCreateTasksに入れる
     //  2-1. i番目のsetCreateTasksにスプレッドしたnewTasksを入れる
     const newTasks = [...createTasks[i]]
-    const editDueDate = window.prompt('締切を編集してください')
+    const editDueDate = window.prompt('締切を編集してください', task.deadline)
     if(editDueDate === null){return}
     newTasks.splice(index, 1, {name: task.name, deadline: editDueDate})
     setCreateTasks[i](newTasks)
