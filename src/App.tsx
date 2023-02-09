@@ -84,19 +84,19 @@ const App = (): React.ReactElement => {
   return(
     <div className="body">
       <div className="head">
-        <input placeholder='ToDoを入力' onChange={onChangeInput} value={input}/>
+      <input placeholder='ToDoを入力' data-testid='input-task' onChange={onChangeInput} value={input}/>
         <AppFlatpickr dueDate={dueDate} setDueDate={setDueDate}/>
-        <button onClick={onClickInputAdd}>追加</button>
+        <button data-testid='add-btn' onClick={onClickInputAdd}>追加</button>
       </div>
       <div className='incomplete-tasks'>
       <p>未完了のToDo</p>
         <ul>
           {incompleteTasks.map((incompleteTask, index)=>
-            <li key={index} >{incompleteTask.name} '締切：'{incompleteTask.deadline}
-              <button type='button' onClick={onClickEditTasks(incompleteTask, index, 0)}>ToDoを編集</button>
-              <button type='button' onClick={onClickEditDueDate(incompleteTask, index, 0)}>締切を編集</button>
-              <button type='button' onClick={onClickMove(index, 0, 1, incompleteTask)}>完了</button>
-              <button type='button' onClick={onClickMove(index, 0, 2, incompleteTask)}>削除</button>
+            <li key={index} data-testid='incomplete-task'>{incompleteTask.name} '締切：'{incompleteTask.deadline}
+              <button type='button' data-testid='task-edit-btn' onClick={onClickEditTasks(incompleteTask, index, 0)}>ToDoを編集</button>
+              <button type='button' data-testid='due-date-edit-btn' onClick={onClickEditDueDate(incompleteTask, index, 0)}>締切を編集</button>
+              <button type='button' data-testid='complete-btn-from-incomplete' onClick={onClickMove(index, 0, 1, incompleteTask)}>完了</button>
+              <button type='button' data-testid='delete-btn-from-incomplete' onClick={onClickMove(index, 0, 2, incompleteTask)}>削除</button>
             </li>
           )}
         </ul>
@@ -106,13 +106,12 @@ const App = (): React.ReactElement => {
         <p>完了済みのToDo</p>
         <ul>
           {completeTasks.map((completeTask, index)=>
-          <li key={index}>
+          <li key={index} data-testid='complete-task'>
             {completeTask.name} '締切：'{completeTask.deadline}
             <button type='button' onClick={onClickEditTasks(completeTask, index, 1)}>ToDoを編集</button>
             <button type='button' onClick={onClickEditDueDate(completeTask, index, 1)}>締切を編集</button>
-            <button type='button' onClick={onClickMove(index, 1, 0, completeTask)}>未完了へ戻す</button>
-            <button type='button' onClick={onClickMove(index, 1, 2, completeTask)}>削除</button>
-          </li>
+            <button type='button' data-testid='incomplete-btn-from-complete' onClick={onClickMove(index, 1, 0, completeTask)}>未完了へ戻す</button>
+            <button type='button' data-testid='delete-btn-from-complete' onClick={onClickMove(index, 1, 2, completeTask)}>削除</button>          </li>
           )}
         </ul>
       </div>
@@ -121,12 +120,11 @@ const App = (): React.ReactElement => {
         <p>削除済みのToDo</p>
         <ul>
           {deletedTasks.map((deletedTask, index)=>
-          <li key={index}>
+          <li key={index} data-testid='delete-task'>
             {deletedTask.name} '締切：'{deletedTask.deadline}
-            <button type='button' onClick={onClickMove(index, 2, 1, deletedTask)}>完了へ戻す</button>
-            <button type='button' onClick={onClickMove(index, 2, 0, deletedTask)}>未完了へ戻す</button>
-            <button type='button' onClick={onClickCompleteDeleted(index, 2)}>完全に削除</button>
-          </li>
+            <button type='button' data-testid='complete-btn-from-delete' onClick={onClickMove(index, 2, 1, deletedTask)}>完了へ戻す</button>
+            <button type='button' data-testid='incomplete-btn-from-delete' onClick={onClickMove(index, 2, 0, deletedTask)}>未完了へ戻す</button>
+            <button type='button' data-testid='complete-delete-btn' onClick={onClickCompleteDeleted(index, 2)}>完全に削除</button>          </li>
           )}
         </ul>
       </div>

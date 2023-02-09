@@ -1,0 +1,1084 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`1-1. 『ToDoを入力』と『締切』が記入された状態で、追加ボタン押下すると、未完了に記入される 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul>
+        <li
+          data-testid="incomplete-task"
+        >
+          あああ '締切：'2023-01-06
+          <button
+            data-testid="task-edit-btn"
+            type="button"
+          >
+            ToDoを編集
+          </button>
+          <button
+            data-testid="due-date-edit-btn"
+            type="button"
+          >
+            締切を編集
+          </button>
+          <button
+            data-testid="complete-btn-from-incomplete"
+            type="button"
+          >
+            完了
+          </button>
+          <button
+            data-testid="delete-btn-from-incomplete"
+            type="button"
+          >
+            削除
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`1-2. 『ToDoを入力』だけが記入された状態で、追加ボタン押下した場合、未完了に記入されない 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value="いいい"
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`1-3. 『締切』だけが記入された状態で、追加ボタン押下した場合、未完了に記入されない 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value="2023-01-27"
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`1-4.『ToDoを入力』と『締切』の両方が記入されていない状態で、追加ボタン押下した場合、未完了に記入されない 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`2-1. ToDoを編集ボタン押下時、ウィンドウが出てきて編集できる 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul>
+        <li
+          data-testid="incomplete-task"
+        >
+          ううう '締切：'2023-01-06
+          <button
+            data-testid="task-edit-btn"
+            type="button"
+          >
+            ToDoを編集
+          </button>
+          <button
+            data-testid="due-date-edit-btn"
+            type="button"
+          >
+            締切を編集
+          </button>
+          <button
+            data-testid="complete-btn-from-incomplete"
+            type="button"
+          >
+            完了
+          </button>
+          <button
+            data-testid="delete-btn-from-incomplete"
+            type="button"
+          >
+            削除
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`2-2. ToDoを編集ボタン押下時、ウィンドウが出てきて編集しなかった場合、元のToDoを返す 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul>
+        <li
+          data-testid="incomplete-task"
+        >
+          あああ '締切：'2023-01-06
+          <button
+            data-testid="task-edit-btn"
+            type="button"
+          >
+            ToDoを編集
+          </button>
+          <button
+            data-testid="due-date-edit-btn"
+            type="button"
+          >
+            締切を編集
+          </button>
+          <button
+            data-testid="complete-btn-from-incomplete"
+            type="button"
+          >
+            完了
+          </button>
+          <button
+            data-testid="delete-btn-from-incomplete"
+            type="button"
+          >
+            削除
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`3-1. 締切を編集ボタン押下時、ウィンドウが出てきて編集できる 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul>
+        <li
+          data-testid="incomplete-task"
+        >
+          あああ '締切：'2023-02-02
+          <button
+            data-testid="task-edit-btn"
+            type="button"
+          >
+            ToDoを編集
+          </button>
+          <button
+            data-testid="due-date-edit-btn"
+            type="button"
+          >
+            締切を編集
+          </button>
+          <button
+            data-testid="complete-btn-from-incomplete"
+            type="button"
+          >
+            完了
+          </button>
+          <button
+            data-testid="delete-btn-from-incomplete"
+            type="button"
+          >
+            削除
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`3-2. 締切を編集ボタン押下時、ウィンドウが出てきて編集しなかった場合、元の締切を返す 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul>
+        <li
+          data-testid="incomplete-task"
+        >
+          あああ '締切：'2023-02-02
+          <button
+            data-testid="task-edit-btn"
+            type="button"
+          >
+            ToDoを編集
+          </button>
+          <button
+            data-testid="due-date-edit-btn"
+            type="button"
+          >
+            締切を編集
+          </button>
+          <button
+            data-testid="complete-btn-from-incomplete"
+            type="button"
+          >
+            完了
+          </button>
+          <button
+            data-testid="delete-btn-from-incomplete"
+            type="button"
+          >
+            削除
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`4-1. 未完了のToDoにある、完了ボタン押下時、完了済みのToDoに記入される 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul>
+        <li
+          data-testid="complete-task"
+        >
+          あああ '締切：'2023-02-02
+          <button
+            type="button"
+          >
+            ToDoを編集
+          </button>
+          <button
+            type="button"
+          >
+            締切を編集
+          </button>
+          <button
+            data-testid="incomplete-btn-from-complete"
+            type="button"
+          >
+            未完了へ戻す
+          </button>
+          <button
+            data-testid="delete-btn-from-complete"
+            type="button"
+          >
+            削除
+          </button>
+                    
+        </li>
+      </ul>
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`4-2. 未完了のToDoにある、削除ボタン押下時、削除済みのToDoに記入される 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul>
+        <li
+          data-testid="delete-task"
+        >
+          あああ '締切：'2023-02-02
+          <button
+            data-testid="complete-btn-from-delete"
+            type="button"
+          >
+            完了へ戻す
+          </button>
+          <button
+            data-testid="incomplete-btn-from-delete"
+            type="button"
+          >
+            未完了へ戻す
+          </button>
+          <button
+            data-testid="complete-delete-btn"
+            type="button"
+          >
+            完全に削除
+          </button>
+                    
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`5-2. 完了済みのToDoにある削除ボタン押下時、削除済みのToDoに記入される 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul>
+        <li
+          data-testid="delete-task"
+        >
+          あああ '締切：'2023-02-02
+          <button
+            data-testid="complete-btn-from-delete"
+            type="button"
+          >
+            完了へ戻す
+          </button>
+          <button
+            data-testid="incomplete-btn-from-delete"
+            type="button"
+          >
+            未完了へ戻す
+          </button>
+          <button
+            data-testid="complete-delete-btn"
+            type="button"
+          >
+            完全に削除
+          </button>
+                    
+        </li>
+      </ul>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`5−1. 完了済みのToDoにある未完了へ戻すボタン押下時、未完了のToDoに記入される 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul>
+        <li
+          data-testid="incomplete-task"
+        >
+          あああ '締切：'2023-02-02
+          <button
+            data-testid="task-edit-btn"
+            type="button"
+          >
+            ToDoを編集
+          </button>
+          <button
+            data-testid="due-date-edit-btn"
+            type="button"
+          >
+            締切を編集
+          </button>
+          <button
+            data-testid="complete-btn-from-incomplete"
+            type="button"
+          >
+            完了
+          </button>
+          <button
+            data-testid="delete-btn-from-incomplete"
+            type="button"
+          >
+            削除
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`6-1. 削除済みのToDoにある、完了へ戻すボタン押下時、完了済みのToDoに記入される 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul>
+        <li
+          data-testid="complete-task"
+        >
+          あああ '締切：'2023-02-02
+          <button
+            type="button"
+          >
+            ToDoを編集
+          </button>
+          <button
+            type="button"
+          >
+            締切を編集
+          </button>
+          <button
+            data-testid="incomplete-btn-from-complete"
+            type="button"
+          >
+            未完了へ戻す
+          </button>
+          <button
+            data-testid="delete-btn-from-complete"
+            type="button"
+          >
+            削除
+          </button>
+                    
+        </li>
+      </ul>
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`6-2. 削除済みのToDoにある、未完了へ戻すボタン押下時、未完了のToDoに記入される 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul>
+        <li
+          data-testid="incomplete-task"
+        >
+          あああ '締切：'2023-02-02
+          <button
+            data-testid="task-edit-btn"
+            type="button"
+          >
+            ToDoを編集
+          </button>
+          <button
+            data-testid="due-date-edit-btn"
+            type="button"
+          >
+            締切を編集
+          </button>
+          <button
+            data-testid="complete-btn-from-incomplete"
+            type="button"
+          >
+            完了
+          </button>
+          <button
+            data-testid="delete-btn-from-incomplete"
+            type="button"
+          >
+            削除
+          </button>
+        </li>
+      </ul>
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`6-3. 削除済みのToDoにある、完全に削除ボタン押下時、画面から完全に削除される 1`] = `
+<DocumentFragment>
+  <div
+    class="body"
+  >
+    <div
+      class="head"
+    >
+      <input
+        data-testid="input-task"
+        placeholder="ToDoを入力"
+        value=""
+      />
+      <input
+        data-testid="input-due-date"
+        value=""
+      />
+      <button
+        data-testid="add-btn"
+      >
+        追加
+      </button>
+    </div>
+    <div
+      class="incomplete-tasks"
+    >
+      <p>
+        未完了のToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="complete-tasks"
+    >
+      <p>
+        完了済みのToDo
+      </p>
+      <ul />
+    </div>
+    <div
+      class="deleted-tasks"
+    >
+      <p>
+        削除済みのToDo
+      </p>
+      <ul />
+    </div>
+  </div>
+</DocumentFragment>
+`;
