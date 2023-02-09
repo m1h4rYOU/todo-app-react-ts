@@ -1,7 +1,7 @@
-import React, {useState, useRef} from 'react';
-import Flatpickr from "react-flatpickr";
+import React, {useState} from 'react';
 import './App.css';
-import "flatpickr/dist/flatpickr.css";
+import AppFlatpickr from './Flatpickr';
+
 
 type Task = {
   name: string;
@@ -16,8 +16,6 @@ const App = (): React.ReactElement => {
   const createTasks = [incompleteTasks, completeTasks, deletedTasks]
   const setCreateTasks = [setIncompleteTasks, setCompleteTasks, setDeletedTasks]
   const [dueDate, setDueDate] = useState<string>('') 
-
-  const fp = useRef<Flatpickr | null>(null)
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>)=>{
     setInput(e.target.value)
@@ -67,11 +65,7 @@ const App = (): React.ReactElement => {
     newTasks.splice(index, 1, {name: editTask, deadline: task.deadline})
     setCreateTasks[i](newTasks)
   }
-  
-  const onChangeDate = (_: Date[], dateStr: string)=>{
-    setDueDate(dateStr)
-  }
-  
+    
   const onClickEditDueDate = (task: Task, index: number, i: number) => ()=>{
     // 1. i番目のcreateTasksを削除する
     //  1-1. createTasksのi番目をスプレッドする（newTasksとする）
@@ -91,23 +85,14 @@ const App = (): React.ReactElement => {
     <div className="body">
       <div className="head">
         <input placeholder='ToDoを入力' onChange={onChangeInput} value={input}/>
-        <Flatpickr ref={fp} placeholder='締切' onChange={onChangeDate} value={dueDate}/>
-        <button
-          type="button"
-          onClick={() => {
-            if (!fp?.current?.flatpickr) return;
-            fp.current.flatpickr.clear();
-          }}
-        >
-          締切削除
-        </button>
+        <AppFlatpickr dueDate={dueDate} setDueDate={setDueDate}/>
         <button onClick={onClickInputAdd}>追加</button>
       </div>
       <div className='incomplete-tasks'>
       <p>未完了のToDo</p>
         <ul>
           {incompleteTasks.map((incompleteTask, index)=>
-            <li>{incompleteTask.name} '締切：'{incompleteTask.deadline}
+            <li key={index} >{incompleteTask.name} '締切：'{incompleteTask.deadline}
               <button type='button' onClick={onClickEditTasks(incompleteTask, index, 0)}>ToDoを編集</button>
               <button type='button' onClick={onClickEditDueDate(incompleteTask, index, 0)}>締切を編集</button>
               <button type='button' onClick={onClickMove(index, 0, 1, incompleteTask)}>完了</button>
@@ -121,7 +106,7 @@ const App = (): React.ReactElement => {
         <p>完了済みのToDo</p>
         <ul>
           {completeTasks.map((completeTask, index)=>
-          <li>
+          <li key={index}>
             {completeTask.name} '締切：'{completeTask.deadline}
             <button type='button' onClick={onClickEditTasks(completeTask, index, 1)}>ToDoを編集</button>
             <button type='button' onClick={onClickEditDueDate(completeTask, index, 1)}>締切を編集</button>
@@ -136,7 +121,7 @@ const App = (): React.ReactElement => {
         <p>削除済みのToDo</p>
         <ul>
           {deletedTasks.map((deletedTask, index)=>
-          <li>
+          <li key={index}>
             {deletedTask.name} '締切：'{deletedTask.deadline}
             <button type='button' onClick={onClickMove(index, 2, 1, deletedTask)}>完了へ戻す</button>
             <button type='button' onClick={onClickMove(index, 2, 0, deletedTask)}>未完了へ戻す</button>
