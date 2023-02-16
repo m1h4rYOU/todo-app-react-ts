@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import './App.css';
 import AppFlatpickr from './Flatpickr';
-
+import json from './todo.json'
 
 type Task = {
   name: string;
@@ -10,9 +10,9 @@ type Task = {
 
 const App = (): React.ReactElement => {
   const [input, setInput] = useState<string>('')
-  const [incompleteTasks, setIncompleteTasks] = useState<Task[]>([])
-  const [completeTasks, setCompleteTasks] = useState<Task[]>([])
-  const [deletedTasks, setDeletedTasks] = useState<Task[]>([])
+  const [incompleteTasks, setIncompleteTasks] = useState<Task[]>(json.incompleteTasks)
+  const [completeTasks, setCompleteTasks] = useState<Task[]>(json.completeTasks)
+  const [deletedTasks, setDeletedTasks] = useState<Task[]>(json.deletedTasks)
   const createTasks = [incompleteTasks, completeTasks, deletedTasks]
   const setCreateTasks = [setIncompleteTasks, setCompleteTasks, setDeletedTasks]
   const [dueDate, setDueDate] = useState<string>('') 
@@ -80,7 +80,6 @@ const App = (): React.ReactElement => {
     newTasks.splice(index, 1, {name: task.name, deadline: editDueDate})
     setCreateTasks[i](newTasks)
   }
-  
   return(
     <div className="body">
       <div className="head">
