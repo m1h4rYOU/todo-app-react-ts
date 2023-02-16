@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
+import { isTypeOnlyImportOrExportDeclaration } from 'typescript';
 import './App.css';
 import AppFlatpickr from './Flatpickr';
 import json from './todo.json'
+import ToDoJson from './ToDoJson';
 
 type Task = {
   name: string;
@@ -27,6 +29,19 @@ const App = (): React.ReactElement => {
     setCreateTasks[0](newInput)
     setInput('')
     setDueDate('')
+  }
+
+  const onClickDownloadData = ()=>{
+    // 1. Blobオブジェクトを作成する
+    // 2. HTMLのa要素を生成
+    // 3. BlobオブジェクトをURLに変換
+    // 4. ファイル名を指定する
+    // 5. a要素をクリックする処理を行う
+    const blob = new Blob([JSON.stringify(ToDoJson)],{type:"text/plain"})
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = `${new Date().toISOString()}.txt`;
+    link.click();
   }
 
   const onClickMove = (index: number, i: number, j: number, task: Task)=>()=>{
@@ -83,9 +98,10 @@ const App = (): React.ReactElement => {
   return(
     <div className="body">
       <div className="head">
-      <input placeholder='ToDoを入力' data-testid='input-task' onChange={onChangeInput} value={input}/>
+        <input placeholder='ToDoを入力' data-testid='input-task' onChange={onChangeInput} value={input}/>
         <AppFlatpickr dueDate={dueDate} setDueDate={setDueDate}/>
         <button data-testid='add-btn' onClick={onClickInputAdd}>追加</button>
+        <button onClick={onClickDownloadData}>データダウンロード</button>
       </div>
       <div className='incomplete-tasks'>
       <p>未完了のToDo</p>
