@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
-import { isTypeOnlyImportOrExportDeclaration } from 'typescript';
+import React, {ChangeEvent, useState} from 'react';
 import './App.css';
 import AppFlatpickr from './Flatpickr';
-import json from './todo.json'
-import ToDoJson from './ToDoJson';
+import { useReadTextFile } from './useReadTextFile';
 
 type Task = {
   name: string;
@@ -12,9 +10,9 @@ type Task = {
 
 const App = (): React.ReactElement => {
   const [input, setInput] = useState<string>('')
-  const [incompleteTasks, setIncompleteTasks] = useState<Task[]>(json.incompleteTasks)
-  const [completeTasks, setCompleteTasks] = useState<Task[]>(json.completeTasks)
-  const [deletedTasks, setDeletedTasks] = useState<Task[]>(json.deletedTasks)
+  const [incompleteTasks, setIncompleteTasks] = useState<Task[]>([])
+  const [completeTasks, setCompleteTasks] = useState<Task[]>([])
+  const [deletedTasks, setDeletedTasks] = useState<Task[]>([])
   const createTasks = [incompleteTasks, completeTasks, deletedTasks]
   const setCreateTasks = [setIncompleteTasks, setCompleteTasks, setDeletedTasks]
   const [dueDate, setDueDate] = useState<string>('') 
@@ -37,11 +35,23 @@ const App = (): React.ReactElement => {
     // 3. BlobオブジェクトをURLに変換
     // 4. ファイル名を指定する
     // 5. a要素をクリックする処理を行う
-    const blob = new Blob([JSON.stringify(ToDoJson)],{type:"text/plain"})
+    const blob = new Blob([JSON.stringify(createTasks)],{type:"text/plain"})
     const link = document.createElement('a');
     link.href = URL.createObjectURL(blob);
     link.download = `${new Date().toISOString()}.txt`;
     link.click();
+  }
+
+  // JSONファイルを読み込む
+  const readTextFile = useReadTextFile();
+  const onChangeFileUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files === null || files.length === 0)return;
+    const file = (files as FileList)[0];
+    const newCreateTasks = JSON.parse(await readTextFile(file) as string)
+    setCreateTasks.forEach((setTasks, index)=>{
+      setTasks(newCreateTasks[index])
+    })
   }
 
   const onClickMove = (index: number, i: number, j: number, task: Task)=>()=>{
@@ -102,6 +112,7 @@ const App = (): React.ReactElement => {
         <AppFlatpickr dueDate={dueDate} setDueDate={setDueDate}/>
         <button data-testid='add-btn' onClick={onClickInputAdd}>追加</button>
         <button onClick={onClickDownloadData}>データダウンロード</button>
+        <input type='file' accept='todoInstall/json' onChange={onChangeFileUpload}/>
       </div>
       <div className='incomplete-tasks'>
       <p>未完了のToDo</p>
