@@ -21,6 +21,11 @@ const App = (): React.ReactElement => {
     setDeletedTasks,
   ];
   const [dueDate, setDueDate] = useState<string>('');
+  const [editing, setEditing] = useState<boolean>(false);
+  const [editingInput, setEditingInput] = useState<string>('');
+  const [editingDueDate, setEditingDueDate] = useState<string>('');
+  const [parentIndex, setParentIndex] = useState<number>(-1);
+  const [childIndex, setChildIndex] = useState<number>(-1);
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -85,176 +90,181 @@ const App = (): React.ReactElement => {
     setCreateTasks[i](newDeletedTasks);
   };
 
-  const onClickEditTasks = (task: Task, index: number, i: number) => () => {
-    // 1. i番目のcreateTasksを削除する
-    //  1-1. createTasksのi番目をスプレッドする（newTasksとする）
-    //  1-2. window.promptを表示（editTasksとする）
-    //  1-3. newTasksをspliceしてindex番目の1つを削除する
-    // 2. i番目のsetCreateTasksに入れる
-    //  2-1. i番目のsetCreateTasksにスプレッドしたnewTasksを入れる
-    const newTasks = [...createTasks[i]];
-    const editTask = window.prompt('ToDoを編集してください', task.name);
-    if (editTask === null) {
-      return;
-    }
-    newTasks.splice(index, 1, { ...task, name: editTask });
-    setCreateTasks[i](newTasks);
+  const onChangeEditingInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditingInput(e.target.value);
   };
 
-  const onClickEditDueDate = (task: Task, index: number, i: number) => () => {
-    // 1. i番目のcreateTasksを削除する
-    //  1-1. createTasksのi番目をスプレッドする（newTasksとする）
-    //  1-2. window.promptを表示（editDueDateとする）
-    //  1-3. editDueDateがnullだった場合、早期リターンする
-    //  1-4. newTasksをspliceしてindex番目の1つを削除する
-    // 2. i番目のsetCreateTasksに入れる
-    //  2-1. i番目のsetCreateTasksにスプレッドしたnewTasksを入れる
-    const newTasks = [...createTasks[i]];
-    const editDueDate = window.prompt('締切を編集してください', task.deadline);
-    if (editDueDate === null) {
-      return;
-    }
-    newTasks.splice(index, 1, { ...task, deadline: editDueDate });
-    setCreateTasks[i](newTasks);
+  const onClickEdit = (task: Task, p: number, c: number) => () => {
+    setEditing(true);
+    setEditingInput(task.name);
+    setEditingDueDate(task.deadline);
+    setParentIndex(p);
+    setChildIndex(c);
+  };
+
+  const onClickEditOk = () => () => {
+    const newTasks = [...createTasks[parentIndex]];
+    newTasks.splice(childIndex, 1, {
+      name: editingInput,
+      deadline: editingDueDate,
+    });
+    setCreateTasks[parentIndex](newTasks);
+    setParentIndex(-1);
+    setChildIndex(-1);
+    setEditing(false);
+  };
+
+  const onClickContent: React.MouseEventHandler<HTMLDivElement> = (e) => {
+    e.stopPropagation();
   };
 
   return (
-    <div className="body">
-      <div className="head">
-        <input
-          placeholder="ToDoを入力"
-          data-testid="input-task"
-          onChange={onChangeInput}
-          value={input}
-        />
-        <AppFlatpickr dueDate={dueDate} setDueDate={setDueDate} />
-        <button data-testid="add-btn" onClick={onClickInputAdd}>
-          追加
-        </button>
-        <button onClick={onClickDownloadData}>データダウンロード</button>
-        <input
-          type="file"
-          accept="todoInstall/json"
-          onChange={onChangeFileUpload}
-        />
-      </div>
-      <div className="incomplete-tasks">
-        <p>未完了のToDo</p>
-        <DraggableList
-          items={incompleteTasks}
-          setItems={setIncompleteTasks}
-          mapper={(incompleteTask, index) => (
-            <>
-              <div data-testid="incomplete-task" />
-              {incompleteTask.name} 締切：{incompleteTask.deadline}
-              <button
-                type="button"
-                data-testid="task-edit-btn"
-                onClick={onClickEditTasks(incompleteTask, index, 0)}
-              >
-                ToDoを編集
-              </button>
-              <button
-                type="button"
-                data-testid="due-date-edit-btn"
-                onClick={onClickEditDueDate(incompleteTask, index, 0)}
-              >
-                締切を編集
-              </button>
-              <button
-                type="button"
-                data-testid="complete-btn-from-incomplete"
-                onClick={onClickMove(index, 0, 1, incompleteTask)}
-              >
-                完了
-              </button>
-              <button
-                type="button"
-                data-testid="delete-btn-from-incomplete"
-                onClick={onClickMove(index, 0, 2, incompleteTask)}
-              >
-                削除
-              </button>
-            </>
-          )}
-        />
-      </div>
+    <>
+      <div className="body">
+        <div className="head">
+          <input
+            placeholder="ToDoを入力"
+            data-testid="input-task"
+            onChange={onChangeInput}
+            value={input}
+          />
+          <AppFlatpickr dueDate={dueDate} setDueDate={setDueDate} />
+          <button data-testid="add-btn" onClick={onClickInputAdd}>
+            追加
+          </button>
+          <button onClick={onClickDownloadData}>データダウンロード</button>
+          <input
+            type="file"
+            accept="todoInstall/json"
+            onChange={onChangeFileUpload}
+          />
+        </div>
+        <div className="incomplete-tasks">
+          <p>未完了のToDo</p>
+          <DraggableList
+            items={incompleteTasks}
+            setItems={setIncompleteTasks}
+            mapper={(incompleteTask, index) => (
+              <>
+                <div data-testid="incomplete-task" />
+                {incompleteTask.name} 締切：{incompleteTask.deadline}
+                <button
+                  type="button"
+                  data-testid="task-edit-btn"
+                  onClick={onClickEdit(incompleteTask, 0, index)}
+                >
+                  編集
+                </button>
+                <button
+                  type="button"
+                  data-testid="complete-btn-from-incomplete"
+                  onClick={onClickMove(index, 0, 1, incompleteTask)}
+                >
+                  完了
+                </button>
+                <button
+                  type="button"
+                  data-testid="delete-btn-from-incomplete"
+                  onClick={onClickMove(index, 0, 2, incompleteTask)}
+                >
+                  削除
+                </button>
+              </>
+            )}
+          />
+        </div>
 
-      <div className="complete-tasks">
-        <p>完了済みのToDo</p>
-        <DraggableList
-          items={completeTasks}
-          setItems={setCompleteTasks}
-          mapper={(completeTask, index) => (
-            <>
-              <div data-testid="complete-task" />
-              {completeTask.name} 締切：{completeTask.deadline}
-              <button
-                type="button"
-                onClick={onClickEditTasks(completeTask, index, 1)}
-              >
-                ToDoを編集
-              </button>
-              <button
-                type="button"
-                onClick={onClickEditDueDate(completeTask, index, 1)}
-              >
-                締切を編集
-              </button>
-              <button
-                type="button"
-                data-testid="incomplete-btn-from-complete"
-                onClick={onClickMove(index, 1, 0, completeTask)}
-              >
-                未完了へ戻す
-              </button>
-              <button
-                type="button"
-                data-testid="delete-btn-from-complete"
-                onClick={onClickMove(index, 1, 2, completeTask)}
-              >
-                削除
-              </button>
-            </>
-          )}
-        />
-      </div>
+        <div className="complete-tasks">
+          <p>完了済みのToDo</p>
+          <DraggableList
+            items={completeTasks}
+            setItems={setCompleteTasks}
+            mapper={(completeTask, index) => (
+              <>
+                <div data-testid="complete-task" />
+                {completeTask.name} 締切：{completeTask.deadline}
+                <button
+                  type="button"
+                  onClick={onClickEdit(completeTask, 1, index)}
+                >
+                  編集
+                </button>
+                <button
+                  type="button"
+                  data-testid="incomplete-btn-from-complete"
+                  onClick={onClickMove(index, 1, 0, completeTask)}
+                >
+                  未完了へ戻す
+                </button>
+                <button
+                  type="button"
+                  data-testid="delete-btn-from-complete"
+                  onClick={onClickMove(index, 1, 2, completeTask)}
+                >
+                  削除
+                </button>
+              </>
+            )}
+          />
+        </div>
 
-      <div className="deleted-tasks">
-        <p>削除済みのToDo</p>
-        <DraggableList
-          items={deletedTasks}
-          setItems={setDeletedTasks}
-          mapper={(deletedTask, index) => (
-            <>
-              <div data-testid="delete-task" />
-              {deletedTask.name} 締切：{deletedTask.deadline}
-              <button
-                type="button"
-                data-testid="complete-btn-from-delete"
-                onClick={onClickMove(index, 2, 1, deletedTask)}
-              >
-                完了へ戻す
-              </button>
-              <button
-                type="button"
-                data-testid="incomplete-btn-from-delete"
-                onClick={onClickMove(index, 2, 0, deletedTask)}
-              >
-                未完了へ戻す
-              </button>
-              <button
-                type="button"
-                data-testid="complete-delete-btn"
-                onClick={onClickCompleteDeleted(index, 2)}
-              >
-                完全に削除
-              </button>
-            </>
-          )}
-        />
+        <div className="deleted-tasks">
+          <p>削除済みのToDo</p>
+          <DraggableList
+            items={deletedTasks}
+            setItems={setDeletedTasks}
+            mapper={(deletedTask, index) => (
+              <>
+                <div data-testid="delete-task" />
+                {deletedTask.name} 締切：{deletedTask.deadline}
+                <button
+                  type="button"
+                  data-testid="complete-btn-from-delete"
+                  onClick={onClickMove(index, 2, 1, deletedTask)}
+                >
+                  完了へ戻す
+                </button>
+                <button
+                  type="button"
+                  data-testid="incomplete-btn-from-delete"
+                  onClick={onClickMove(index, 2, 0, deletedTask)}
+                >
+                  未完了へ戻す
+                </button>
+                <button
+                  type="button"
+                  data-testid="complete-delete-btn"
+                  onClick={onClickCompleteDeleted(index, 2)}
+                >
+                  完全に削除
+                </button>
+              </>
+            )}
+          />
+        </div>
       </div>
-    </div>
+      {editing && (
+        <div id="overlay" onClick={onClickEditOk()}>
+          <div id="content" onClick={onClickContent}>
+            <input
+              placeholder="ToDoを入力"
+              data-testid="input-task"
+              onChange={onChangeEditingInput}
+              value={editingInput}
+            />
+            <AppFlatpickr
+              dueDate={editingDueDate}
+              setDueDate={setEditingDueDate}
+            />
+            <p>
+              <button data-testid="add-btn" onClick={onClickEditOk()}>
+                OK
+              </button>
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   );
 };
 
