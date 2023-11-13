@@ -12,24 +12,24 @@
   background-color: rgb(251, 189, 198);
 }
 
-.incomplete-tasks {
+.unfinished-tasks {
   padding: 10px 15px;
   margin: 10px 0;
   border-radius: 10px;
   background-color: aqua;
 }
-.incomplete-tasks p {
+.unfinished-tasks p {
   margin: 0;
   padding: 0;
 }
 
-.complete-tasks {
+.finished-tasks {
   padding: 10px 15px;
   margin: 10px 0;
   border-radius: 10px;
   background-color: aquamarine;
 }
-.complete-tasks p {
+.finished-tasks p {
   margin: 0;
   padding: 0;
 }
